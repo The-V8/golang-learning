@@ -29,10 +29,6 @@ jobs:
       run: if compgen -G *.go ; then echo "::set-env name=go_code_exists::1"; fi
       working-directory: ${{ matrix.subdir }}
       
-    - name: Debug go code env var
-      run: echo $GO_CODE_EXISTS
-      working-directory: ${{ matrix.subdir }}
-      
     - name: Run golangci-lint
       if: env.go_code_exists == 1
       uses: golangci/golangci-lint-action@v1.2.1
