@@ -31,7 +31,7 @@ jobs:
         fi
 
     - name: Build
-      run: find . -maxdepth 1 -type d -regex '^\./[a-zA-Z].*' -exec go build -v {} \;
+      run: find . -maxdepth 1 -type d -regex '^\./[a-zA-Z].*' -exec sh -c "cd {}; go build -v ." \;
 
     - name: Test
-      run: find . -maxdepth 1 -type d -regex '^\./[a-zA-Z].*' -exec go test -v {} \;
+      run: find . -maxdepth 1 -type d -regex '^\./[a-zA-Z].*' -exec sh -c "cd {}; go test -v ." \;
