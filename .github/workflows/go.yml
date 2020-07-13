@@ -5,9 +5,6 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-defaults:
-  run:
-    working-directory: ${{ matrix.subdir }}
 
 jobs:
 
@@ -30,6 +27,7 @@ jobs:
     
     - name: Discover if project dir has go code or not
       run: compgen -G *.go && echo '::set-env name=HASGOCODE::true'
+      working-directory: ${{ matrix.subdir }}
 
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v1.2.1
@@ -55,7 +53,9 @@ jobs:
     - name: Build
       if: ${{ env.HASGOCODE }}
       run: go build -v .
+      working-directory: ${{ matrix.subdir }}
 
     - name: Test
       if: ${{ env.HASGOCODE }}
       run: go test -v .
+      working-directory: ${{ matrix.subdir }}
