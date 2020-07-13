@@ -1,0 +1,65 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  lint-build-test:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subdir: [test-ci, anheumai-dparys, cavert-pkirch, daheinze-oscheer, oliverli-gubilgut]
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.14
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+    
+    - name: Discover if project dir has go code or not
+      run: if compgen -G *.go ; then echo "::set-env name=go_code_exists::1"; fi
+      working-directory: ${{ matrix.subdir }}
+      
+    - name: Debug go code env var
+      run: echo $GO_CODE_EXISTS
+      working-directory: ${{ matrix.subdir }}
+      
+    - name: Run golangci-lint
+      if: ${{ env.go_code_exists }} == 1
+      uses: golangci/golangci-lint-action@v1.2.1
+      with:
+        version: v1.28
+        # golangci-lint working directory, default is project root
+        working-directory: ${{ matrix.subdir }}
+        # the token is used for fetching patch of a pull request to show only new issues
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        # if set to true and the action runs on a pull request - the action outputs only newly found issues
+        only-new-issues: true
+
+    - name: Get dependencies
+      if: ${{ env.go_code_exists }} == 1
+      run: |
+        go get -v -t -d ./...
+        if [ -f Gopkg.toml ]; then
+            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+            dep ensure
+        fi
+  
+    - name: Build
+      if: ${{ env.go_code_exists }} == 1
+      run: go build -v .
+      working-directory: ${{ matrix.subdir }}
+
+    - name: Test
+      if: ${{ env.go_code_exists }} == 1
+      run: go test -v .
+      working-directory: ${{ matrix.subdir }}
