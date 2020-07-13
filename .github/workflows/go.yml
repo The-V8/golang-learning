@@ -34,7 +34,7 @@ jobs:
       working-directory: ${{ matrix.subdir }}
       
     - name: Run golangci-lint
-      if: ${{ env.go_code_exists }} == 1
+      if: env.go_code_exists == 1
       uses: golangci/golangci-lint-action@v1.2.1
       with:
         version: v1.28
@@ -46,7 +46,7 @@ jobs:
         only-new-issues: true
 
     - name: Get dependencies
-      if: ${{ env.go_code_exists }} == 1
+      if: env.go_code_exists == 1
       run: |
         go get -v -t -d ./...
         if [ -f Gopkg.toml ]; then
@@ -55,11 +55,11 @@ jobs:
         fi
   
     - name: Build
-      if: ${{ env.go_code_exists }} == 1
+      if: env.go_code_exists == 1
       run: go build -v .
       working-directory: ${{ matrix.subdir }}
 
     - name: Test
-      if: ${{ env.go_code_exists }} == 1
+      if: env.go_code_exists == 1
       run: go test -v .
       working-directory: ${{ matrix.subdir }}
