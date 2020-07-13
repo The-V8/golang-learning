@@ -38,8 +38,6 @@ jobs:
         working-directory: ${{ matrix.subdir }}
         # the token is used for fetching patch of a pull request to show only new issues
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        # if set to true and the action runs on a pull request - the action outputs only newly found issues
-        only-new-issues: true
 
     - name: Get dependencies
       if: env.go_code_exists == 1
