@@ -20,7 +20,7 @@ func BenchmarkRepeat(b *testing.B) {
 	}
 }
 
-func ExampleRepear() {
+func ExampleRepeat() {
 	sum := Repeat("a", 5)
 	fmt.Println(sum)
 
