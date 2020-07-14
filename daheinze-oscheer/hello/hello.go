@@ -1,4 +1,5 @@
-package main
+// Package hello contains code to send a nice greeting in some languages
+package hello
 
 import "fmt"
 
