@@ -23,5 +23,4 @@ func BenchmarkRepeat(b *testing.B) {
 func ExampleRepeat() {
 	sum := Repeat("a", 5)
 	fmt.Println(sum)
-
 }
