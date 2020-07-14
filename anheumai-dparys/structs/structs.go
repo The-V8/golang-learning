@@ -1,36 +1,45 @@
 package structs
 
-import (
-	"math"
-)
+import "math"
 
-// Rectangle declares a rectangle (comments are just here to please the linter)
+type Shape interface {
+	Area() float64
+}
+
+// Rectangle func
 type Rectangle struct {
-	width  float64
-	height float64
+	Width  float64
+	Height float64
 }
 
-// Area calculates the area of a rectangle
+type Triangle struct {
+	Base   float64
+	Height float64
+}
+
+func (t Triangle) Area() float64 {
+	return (t.Base * t.Height) * 0.5
+}
+
+// Arena func from Rectangle
 func (r Rectangle) Area() float64 {
-	return r.width * r.height
+	return r.Width * r.Height
 }
 
-// Circle declares a circle (what a surprise)
 type Circle struct {
 	Radius float64
 }
 
-// Area calculates the area of a circle
+// Area func from Circle
 func (c Circle) Area() float64 {
 	return math.Pi * c.Radius * c.Radius
 }
 
-// Perimeter calculates the perimeter of a rectangle
-func Perimeter(r Rectangle) float64 {
-	return 2 * (r.width + r.height)
+// Perimeter func
+func perimeter(rectangle Rectangle) float64 {
+	return 2 * (rectangle.Width + rectangle.Height)
 }
 
-// Area calculates the area of a rectangle
-func Area(r Rectangle) float64 {
-	return r.width * r.height
+func area(rectangle Rectangle) float64 {
+	return rectangle.Width * rectangle.Height
 }

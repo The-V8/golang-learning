@@ -4,32 +4,35 @@ import (
 	"testing"
 )
 
-func assert(t *testing.T, got, want float64) {
-	if got != want {
-		t.Errorf("got %.2f want %.2f", got, want)
-	}
-}
-
 func TestPerimeter(t *testing.T) {
 	rectangle := Rectangle{10.0, 10.0}
-	got := Perimeter(rectangle)
+	got := perimeter(rectangle)
 	want := 40.0
-	assert(t, got, want)
+
+	if got != want {
+		t.Errorf("got %f want %f", got, want)
+	}
 }
 
 func TestArea(t *testing.T) {
 
-	t.Run("Calculate area of a rectangle", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 10.0}
-		got := rectangle.Area()
-		want := 100.0
-		assert(t, got, want)
-	})
+	areaTests := []struct {
+		name    string
+		shape   Shape
+		hasArea float64
+	}{
+		{name: "Triangle", shape: Triangle{Height: 6, Base: 12}, hasArea: 36.0},
+		{name: "Rectangle", shape: Rectangle{Width: 12, Height: 6}, hasArea: 72.0},
+		{name: "Circle", shape: Circle{Radius: 10}, hasArea: 314.1592653589793},
+	}
 
-	t.Run("Calculate area of a circle", func(t *testing.T) {
-		cicle := Circle{10.0}
-		got := cicle.Area()
-		want := 314.16
-		assert(t, got, want)
-	})
+	for _, tt := range areaTests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			if got != tt.hasArea {
+				t.Errorf("%#v got %g want %g", tt.shape, got, tt.hasArea)
+			}
+		})
+	}
+
 }
