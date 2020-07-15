@@ -5,8 +5,19 @@ import (
 	"testing"
 )
 
+const iterations = 5
+
 func TestRepeat(t *testing.T) {
-	repeated := Repeat("a", 5)
+	repeated := Repeat("a", iterations)
+	expected := "aaaaa"
+
+	if repeated != expected {
+		t.Errorf("expected %q but got %q", expected, repeated)
+	}
+}
+
+func TestRepeatStringLib(t *testing.T) {
+	repeated := RepeatStringLib("a", iterations)
 	expected := "aaaaa"
 
 	if repeated != expected {
@@ -16,11 +27,12 @@ func TestRepeat(t *testing.T) {
 
 func BenchmarkRepeat(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Repeat("a", 5)
+		Repeat("a", iterations)
 	}
 }
 
 func ExampleRepeat() {
-	sum := Repeat("a", 5)
-	fmt.Println(sum)
+	result := Repeat("a", iterations)
+	fmt.Println(result)
+	// Output: aaaaa
 }
