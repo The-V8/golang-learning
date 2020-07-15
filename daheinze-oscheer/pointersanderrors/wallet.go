@@ -5,10 +5,10 @@ import (
 	"fmt"
 )
 
-// Stringer lorem ipsum
-type Stringer interface {
-	String() string
-}
+// // Stringer lorem ipsum
+// type Stringer interface {
+// 	String() string
+// }
 
 // Bitcoin makes people crazy
 type Bitcoin int
