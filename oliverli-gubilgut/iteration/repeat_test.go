@@ -1,0 +1,38 @@
+package iteration
+
+import (
+	"fmt"
+	"testing"
+)
+
+const iterations = 5
+
+func TestRepeat(t *testing.T) {
+	repeated := Repeat("a", iterations)
+	expected := "aaaaa"
+
+	if repeated != expected {
+		t.Errorf("expected %q but got %q", expected, repeated)
+	}
+}
+
+func TestRepeatStringLib(t *testing.T) {
+	repeated := RepeatStringLib("a", iterations)
+	expected := "aaaaa"
+
+	if repeated != expected {
+		t.Errorf("expected %q but got %q", expected, repeated)
+	}
+}
+
+func BenchmarkRepeat(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Repeat("a", iterations)
+	}
+}
+
+func ExampleRepeat() {
+	result := Repeat("a", iterations)
+	fmt.Println(result)
+	// Output: aaaaa
+}
