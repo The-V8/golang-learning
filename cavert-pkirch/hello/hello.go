@@ -9,6 +9,7 @@ const spanishHelloPrefix = "Hola, "
 const frenchHelloPrefix = "Bonjour, "
 const helloPostfix = "!"
 
+// Hello takes in a name and language and returns a greeting string.
 func Hello(name string, language string) string {
 	if name == "" {
 		name = "World"
