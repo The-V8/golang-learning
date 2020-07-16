@@ -7,14 +7,6 @@ import (
 	"time"
 )
 
-// type SpySleeper struct {
-// 	Calls int
-// }
-
-// func (s *SpySleeper) Sleep() {
-// 	s.Calls++
-// }
-
 func TestCountdown(t *testing.T) {
 
 	t.Run("prints 3 to Go!", func(t *testing.T) {
