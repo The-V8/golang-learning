@@ -1,8 +1,6 @@
 package pointerserrors
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestWallet(t *testing.T) {
 
