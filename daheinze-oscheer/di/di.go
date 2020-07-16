@@ -6,10 +6,12 @@ import (
 	"net/http"
 )
 
+// Greet uses a writer as output
 func Greet(writer io.Writer, name string) {
 	fmt.Fprintf(writer, "Hello, %s", name)
 }
 
+// MyGreeterHandler greets in http-style
 func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
 	Greet(w, "world")
 }
