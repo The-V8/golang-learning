@@ -2,6 +2,7 @@ package iteration
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -15,7 +16,6 @@ func TestRepeat(t *testing.T) {
 }
 
 func BenchmarkRepeat(b *testing.B) {
-
 	b.Run("repeat 5 times", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			Repeat("a", 5)
@@ -25,6 +25,20 @@ func BenchmarkRepeat(b *testing.B) {
 	b.Run("repeat 5000 times", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			Repeat("a", 5000)
+		}
+	})
+}
+
+func BenchmarkLibraryRepeat(b *testing.B) {
+	b.Run("repeat 5 times", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			strings.Repeat("a", 5)
+		}
+	})
+
+	b.Run("repeat 5000 times", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			strings.Repeat("a", 5000)
 		}
 	})
 }
