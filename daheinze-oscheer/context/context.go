@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Server handler function
 func Server(store Store) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		data, err := store.Fetch(r.Context())
@@ -18,6 +19,7 @@ func Server(store Store) http.HandlerFunc {
 	}
 }
 
+// Store interface
 type Store interface {
 	Fetch(ctx context.Context) (string, error)
 }
